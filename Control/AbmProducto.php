@@ -23,9 +23,9 @@ class AbmProducto {
             
             
             if(array_key_exists('proimagen', $param)){
-                $obj-> setear($param['idproducto'], $param['pronombre'], $param['prodetalle'], $param['procantstock'], $param['proimagen'], $param['proimporte']);
+                $obj-> setear( $param['pronombre'], $param['prodetalle'], $param['procantstock'], $param['proimagen'], $param['proimporte']);
             } else {
-                $obj-> setear($param['idproducto'], $param['pronombre'], $param['prodetalle'], $param['procantstock'], null, $param['proimporte']);
+                $obj-> setear( $param['idproducto'],$param['pronombre'], $param['prodetalle'], $param['procantstock'], $param['proimporte']);
             }
         }
         return $obj;
@@ -133,8 +133,6 @@ class AbmProducto {
      */
     
     public function buscar($param){
-        
-        
         $where = " true ";
         if ($param<>NULL){
             if  (isset($param['idproducto']))
@@ -156,6 +154,20 @@ class AbmProducto {
         return $arreglo;
     }
 
+    public function buscarID($datos){
+        $productos = $this->buscar(null); 
+        $idIngresado = (int)$datos["idproducto"];
+        $obj = null; 
+    
+        foreach ($productos as $producto) {
+            if ($idIngresado === $producto->getIdProducto()) {
+                $obj = $producto;
+               // var_dump($obj);
+                break;
+            }
+        }
+        return $obj;
+    }
     
 }
 ?>

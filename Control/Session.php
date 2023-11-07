@@ -35,16 +35,17 @@ class Session{
     {$this->mensajeoperacion = $mensajeoperacion; }
 
     
-    public function iniciar($usu,$pass){
-        $resp=false;
-        $abmUsuario=new AbmUsuario();
-        $where =['usnombre'=>$usu,'uspass'=>$pass,'usdehabilitado'=>'null'];
-        $listaUsuarios=$abmUsuario->buscar($where);
-        if(count($listaUsuarios)>0){
-            $_SESSION['idusuario']=$listaUsuarios[0]->getIdUsuario();
-            $resp=true;
-        }  
-        else{ $this->cerrar();}
+    public function iniciar($usu, $pass) {
+        $resp = false;
+        $abmUsuario = new AbmUsuario();
+        $where = ['usnombre' => $usu, 'uspass' => $pass, 'usdehabilitado IS NULL'];
+        $listaUsuarios = $abmUsuario->buscar($where);
+        if (count($listaUsuarios) > 0) {
+            $_SESSION['idusuario'] = $listaUsuarios[0]->getIdUsuario();
+            $resp = true;
+        } else {
+            $this->cerrar();
+        }
         return $resp;
     }
     

@@ -108,23 +108,22 @@ class Usuario {
     
     public function insertar(){
         $resp = false;
-        $base=new BaseDatos();
-        $sql="INSERT INTO usuario (usnombre, uspass, usmail, usdeshabilitado) VALUES ('".$this->getUsNombre()."','".md5($this->getUsPass())."','".$this->getUsMail()."','".$this -> getUsDeshabilitado()."');";
-        echo $sql;
+        $base = new BaseDatos();
+        $sql = "INSERT INTO usuario (usnombre, uspass, usmail) VALUES ('" . $this->getUsNombre() . "','" . md5($this->getUsPass()) . "','" . $this->getUsMail() . "');";
+        //echo $sql;
         if ($base->Iniciar()) {
-            
             if ($elid = $base->Ejecutar($sql)) {
                 $this->setIdUsuario($elid);
                 $resp = true;
             } else {
-                $this->setmensajeoperacion("usuario->insertar: ".$base->getError());
+                $this->setmensajeoperacion("usuario->insertar: " . $base->getError());
             }
         } else {
-            $this->setmensajeoperacion("usuario->insertar: ".$base->getError());
+            $this->setmensajeoperacion("usuario->insertar: " . $base->getError());
         }
-        
         return $resp;
     }
+    
     
     public function modificar(){
         $resp = false;
