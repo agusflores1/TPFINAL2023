@@ -1,9 +1,7 @@
 <?php
-session_start();
 
 include_once("../../../configuracion.php");
 include_once(STRUCTURE_PATH . "cabecera.php");
-include_once(STRUCTURE_PATH . "menu.php");
 
 $datos = data_submitted();
 $encontrado = false;

@@ -1,7 +1,6 @@
 <?php
     include_once ("../../configuracion.php");
     include_once(STRUCTURE_PATH . "cabecera.php");
-    include_once (STRUCTURE_PATH."menuCliente.php");
     ?>
 <main class="p-5 text-center bg-light">
     <div class="justify-content-md-center align-items-center ">

@@ -4,17 +4,16 @@ class Session{
     private $listaRoles;
     private $mensajeoperacion;
     
-    public function __construct(){
-        if(session_start()){
-            $this->objUsuario=null;
-            $this->listaRoles=[];
-            $this->mensajeoperacion="";
-            return true;
+    public function __construct() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
-        else
-         return false;
+    
+        $this->objUsuario = null;
+        $this->listaRoles = [];
+        $this->mensajeoperacion = "";
     }
-
+    
 
     public function getObjUsuario()
     { return $this->objUsuario;}
@@ -34,20 +33,28 @@ class Session{
     public function setMensajeoperacion($mensajeoperacion)
     {$this->mensajeoperacion = $mensajeoperacion; }
 
-    
     public function iniciar($usu, $pass) {
         $resp = false;
         $abmUsuario = new AbmUsuario();
         $where = ['usnombre' => $usu, 'uspass' => $pass, 'usdehabilitado IS NULL'];
         $listaUsuarios = $abmUsuario->buscar($where);
         if (count($listaUsuarios) > 0) {
+            // Guardar el ID de usuario en la sesión
             $_SESSION['idusuario'] = $listaUsuarios[0]->getIdUsuario();
+    
+            // Obtener roles del usuario
+            $listaRolesUsu = $this->getRol();
+            // Guardar los roles en la sesión
+            $_SESSION['roles'] = $listaRolesUsu; //devuekve un obj 
+            
             $resp = true;
         } else {
             $this->cerrar();
         }
+    
         return $resp;
     }
+    
     
 
     
@@ -81,19 +88,24 @@ class Session{
     }
     
     public function getRol(){
-        if($this->validar())
-        { $abmUsuarioRol=new AbmUsuarioRol();
-      //  $usuario=$this->getUsuario();
-        //$idUsuario=$usuario->getIdUsuario();
-        $param['idusuario']=$_SESSION['idusuario'];
-        //$param=['idusuario'=>$idUsuario];
-        $listaRolesUsu=$abmUsuarioRol->buscar($param);
-        if($listaRolesUsu>1){
-         $rol=$listaRolesUsu;}
-        else{$rol=$listaRolesUsu[0];}
-    }
-        setListaRoles($rol);
-        return $rol; 
+        $idRoles = [];  // Inicializamos el array de IDs de roles
+    
+        if($this->validar()){
+            $abmUsuarioRol = new AbmUsuarioRol();
+            $param['idusuario'] = $_SESSION['idusuario'];
+            $listaRolesUsu = $abmUsuarioRol->buscar($param);
+    
+            foreach ($listaRolesUsu as $usuarioRol) {
+                // Acceder al ID del rol dentro del objeto UsuarioRol
+                //$idRoles[] = $usuarioRol->getObjRol()->getIdRol();
+                $idRoles[] = $usuarioRol->getObjRol();
+            }
+        }
+    
+        // Establecer los roles en la instancia actual (ajusta según sea necesario)
+        $this->setListaRoles($idRoles);
+    
+        return $idRoles;
     }
     
     public function cerrar(){

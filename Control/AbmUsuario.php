@@ -11,7 +11,8 @@ class AbmUsuario {
     
     public function cargarObjeto($param){
         $obj = null;
-        
+        $contrasena = $param['uspass'];
+        $datos['uspass'] = md5($contrasena); // encripta la contraseña 
         if(array_key_exists('usnombre',$param) && array_key_exists('uspass',$param) && array_key_exists('usmail',$param)){
             
             $obj = new Usuario();
@@ -120,7 +121,9 @@ public function modificacion($param) {
     $resp = false;
     // Verificar que el arreglo contiene los datos necesarios
     if (isset($param['idusuario'])) {
-        $idUsuario = $param['idusuario'];
+        $contrasena = $param['uspass'];
+       // $idUsuario = $param['idusuario'];
+      //  $param['uspass'] = md5($contrasena);
         $usuarioActualizado = $this->cargarObjeto($param);
         // Verificar si se cargó correctamente el objeto
         if ($usuarioActualizado !== null) {

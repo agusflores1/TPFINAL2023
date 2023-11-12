@@ -151,6 +151,50 @@ class AbmMenuRol {
         //echo $where;
         return $arreglo;
         
+    }public function menuesByIdRol($objRol)
+    {
+        // 1. Obtener el ID del rol
+        $param['idRol'] = $objRol->getIdrol();
+    
+        // 2. Búsqueda de menús por ID de rol
+        $objMenuObjRol = $this->buscar($param);
+    
+        // 3. Inicializar el array para almacenar los resultados finales de menús
+        $menuesRoles = [];
+    
+        // 4. Iterar sobre los resultados de la búsqueda
+        foreach ($objMenuObjRol as $objMenuRol) {
+            // 5. Procesamiento de Resultados
+            if (is_array($objMenuRol)) {
+                // 5.1. Iterar sobre el array si el resultado es un array
+                foreach ($objMenuRol as $objMR) {
+                    // 5.2. Verificar si el menú pertenece al rol deseado
+                    if ($objMR->getObjRol()->getIdrol() == $param['idRol']) {
+                        // 5.3. Agregar el menú solo si pertenece al rol deseado
+                        array_push($menuesRoles, $objMR);
+                    }
+                }
+            } else {
+                // 5.4. Verificar si el menú pertenece al rol deseado
+                if ($objMenuRol->getObjRol()->getIdrol() == $param['idRol']) {
+                    // 5.5. Agregar el menú solo si pertenece al rol deseado
+                    array_push($menuesRoles, $objMenuRol);
+                }
+            }
+        }
+    
+        // 6. Inicializar el array para almacenar los objetos de menú finales
+        $menues = [];
+    
+        // 7. Crear el array final de menús
+        foreach ($menuesRoles as $objetos) {
+            array_push($menues, $objetos->getObjmenu());
+        }
+    
+        // 8. Retorno del Resultado
+        return $menues;
     }
+    
+
 }
 ?>

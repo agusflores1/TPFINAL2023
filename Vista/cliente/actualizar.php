@@ -1,9 +1,7 @@
 <?php
-session_start();
-
 include_once("../../configuracion.php");
 include_once(STRUCTURE_PATH . "cabecera.php");
-include_once (STRUCTURE_PATH."menuCliente.php");
+
 
 // Verificar si la variable de sesión 'idusuario' está definida
 if (isset($_SESSION['idusuario'])) {
@@ -32,7 +30,7 @@ if (isset($_SESSION['idusuario'])) {
                                
                                 <label for="usnombre" class="form-label">Usuario:</label>
                                 </span>
-                                <input type="text" name="usnombre" id="usnombre" class="form-control validate" maxlength="10" value="<?php echo $objEncontrado->getUsNombre(); ?>">
+                                <input type="text" name="usnombre" id="usnombre" class="form-control validate" maxlength="30" value="<?php echo $objEncontrado->getUsNombre(); ?>">
                                 <div class="invalid-feedback">
                                     Por favor, ingrese caracteres válidos.
                                 </div>
@@ -82,6 +80,9 @@ if (isset($_SESSION['idusuario'])) {
 } else {
     echo "Usuario no autenticado."; 
 }
-include(STRUCTURE_PATH . "pie.php");
+
 ?>
+<?php include(STRUCTURE_PATH . "pie.php"); ?>
+
+
 

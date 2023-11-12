@@ -1,7 +1,6 @@
 <?php
 include_once("../../configuracion.php");
 include_once(STRUCTURE_PATH . "cabecera.php");
-include_once (STRUCTURE_PATH."menu.php");
 
 ?>
   <div class="main-content d-flex flex-column">
@@ -21,7 +20,7 @@ include_once (STRUCTURE_PATH."menu.php");
                                
                                 <label for="usnombre" class="form-label">Usuario:</label>
                                 </span>
-                                <input type="text" name="usnombre" id="usnombre" class="form-control validate" maxlength="10" required>
+                                <input type="text" name="usnombre" id="usnombre" class="form-control validate" maxlength="30" required>
                                 <div class="invalid-feedback">
                                     Por favor, ingrese caracteres válidos.
                                 </div>
@@ -63,3 +62,4 @@ include_once (STRUCTURE_PATH."menu.php");
         </div>
     </main>
 </div>
+<?php include(STRUCTURE_PATH . "pie.php"); ?>

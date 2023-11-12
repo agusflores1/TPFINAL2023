@@ -1,7 +1,6 @@
 <?php
     include_once ("../../configuracion.php");
     include_once(STRUCTURE_PATH . "cabecera.php");
-    include_once (STRUCTURE_PATH."menuCliente.php");
     ?>
 <main class="p-5 text-center bg-light">
     <div class="justify-content-md-center align-items-center ">
@@ -13,7 +12,7 @@
            <?php
             echo '<div class="alert alert-dark" role="alert">' .'Navega por el sitio!'. ' </div>';
             ?>
-            <br><a href="login.php" class="btn btn-primary">Volver</a>
+            <br> <a href="../cliente/accion/logout.php" class="nav-link link-light px-2"></a>
            
 
             </div>

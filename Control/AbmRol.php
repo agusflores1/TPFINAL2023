@@ -106,13 +106,31 @@ class AbmRol{
                 if  (isset($param['rodescripcion']))
                     $where.=" and rodescripcion ='".$param['rodescripcion']."'";
         }
-        $arreglo = Rol::listar($where);
+        $rol = new Rol();
+       $arreglo = $rol->listar();
         return $arreglo;
         
         
         
         
     }
+    public function obtenerObj($arrayId){
+        $objRoles = [];
+    
+        if (is_array($arrayId)) { // Verificar si $arrayId es un array
+            foreach ($arrayId as $idRol) {
+                $param['idRol'] = $idRol;
+                $objRol = $this->buscar($param);
+    
+                if (!empty($objRol)) { // Verificar si $objRol no está vacío antes de acceder a él
+                    array_push($objRoles, $objRol[0]);
+                }
+            }
+        }
+    
+        return $objRoles;
+    }
+    
     
 }
 ?>
